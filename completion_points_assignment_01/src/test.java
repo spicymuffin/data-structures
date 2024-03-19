@@ -2,25 +2,30 @@ public class test {
 
     public static int search(int n, int[] a, int x) {
         int left = 0;
-        int right = n;
-        while (left + 1 < right) {
-            int mid = (left + right) / 2;
+        int right = n - 1;
+
+        int mid;
+
+        left = 0;
+        right = n - 1;
+        while (left < right) {
+            mid = (left + right) / 2 + 1;
             if (a[mid] >= x)
                 left = mid;
             else
-                right = mid;
+                right = mid - 1;
         }
-        if (left + 1 == right && a[left] == x)
+        if ((left == right) && (a[left] == x)) {
             return left;
-        else
+        } else
             return -1;
     }
 
     public static void main(String[] args) {
-        int n = 6;
-        int[] arr = new int[] { 1, 2, 7, 8, 9, 10 };
-        int x = 9;
-        System.out.println(search(6, arr, 9));
+        int n = 3;
+        int[] arr = new int[] { 1, 0, -3};
+        int x = 0;
+        System.out.println(search(n, arr, x));
     }
 
 }

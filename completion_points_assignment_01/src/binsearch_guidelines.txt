@@ -1,0 +1,5 @@
+inclusivity of midpoint check should affect only midpoint choosing code.
+direction of sign changes nothing except if and else block's content's order.
+ascending/descending order changes only sign direction.
+(assuming it's not a negation: for descending, x <; for ascending: x >)
+(true sets left, false sets right)
