@@ -21,23 +21,27 @@ public class SinglyLinkedList {
             current = LL.first;
         }
 
-        public Node atNext() {
+        public Node mvToNext() {
             current = current.next;
             return current;
         }
 
-        public Node atLastNode() {
+        public Node mvToLast() {
             current = LL.last;
             return current;
         }
 
-        public Node atFirstNode() {
+        public Node mvToFirst() {
             current = LL.first;
             return current;
         }
 
         public int getValue() {
             return current.value;
+        }
+
+        public Node getNextNode() {
+            return current.next;
         }
 
         public Node getLastNode() {
@@ -49,6 +53,11 @@ public class SinglyLinkedList {
         }
 
         public Node getCurrentNode() {
+            return current;
+        }
+
+        public Node mvToNode(Node _node) {
+            current = _node;
             return current;
         }
     }
@@ -65,7 +74,7 @@ public class SinglyLinkedList {
         return first == null;
     }
 
-    public Node insertFront(int _value) {
+    public Node insertFirst(int _value) {
         Node inserted = new Node(first, _value);
         first = inserted;
         if (first.next == null) {
@@ -102,7 +111,12 @@ public class SinglyLinkedList {
 
     public Node insertLast(int _value) {
         Node inserted = new Node(null, _value);
-        last.next = inserted;
+        if (last != null) {
+            last.next = inserted;
+        }
+        if (first == null) {
+            first = inserted;
+        }
         last = inserted;
         return inserted;
     }
