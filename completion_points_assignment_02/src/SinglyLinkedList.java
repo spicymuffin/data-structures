@@ -13,10 +13,43 @@ public class SinglyLinkedList {
     }
 
     class Iterator {
-        Node current;
+        public Node current;
+        public SinglyLinkedList LL;
 
-        public Iterator(Node current) {
+        public Iterator(SinglyLinkedList _LL) {
+            LL = _LL;
+            current = LL.first;
+        }
 
+        public Node atNext() {
+            current = current.next;
+            return current;
+        }
+
+        public Node atLastNode() {
+            current = LL.last;
+            return current;
+        }
+
+        public Node atFirstNode() {
+            current = LL.first;
+            return current;
+        }
+
+        public int getValue() {
+            return current.value;
+        }
+
+        public Node getLastNode() {
+            return LL.last;
+        }
+
+        public Node getFirstNode() {
+            return LL.first;
+        }
+
+        public Node getCurrentNode() {
+            return current;
         }
     }
 
@@ -35,6 +68,9 @@ public class SinglyLinkedList {
     public Node insertFront(int _value) {
         Node inserted = new Node(first, _value);
         first = inserted;
+        if (first.next == null) {
+            last = first;
+        }
         return inserted;
     }
 
@@ -45,6 +81,9 @@ public class SinglyLinkedList {
         }
         int returnValue = first.value;
         first = first.next;
+        if (first.next == null) {
+            last = null;
+        }
         return returnValue;
     }
 
@@ -55,12 +94,16 @@ public class SinglyLinkedList {
         }
         Node inserted = new Node(_node.next, _value);
         _node.next = inserted;
+        if (inserted.next == null) {
+            last = inserted;
+        }
         return inserted;
     }
 
     public Node insertLast(int _value) {
         Node inserted = new Node(null, _value);
         last.next = inserted;
+        last = inserted;
         return inserted;
     }
 

@@ -19,19 +19,31 @@ public class CPA2 {
             SinglyLinkedList bLL = new SinglyLinkedList();
             SinglyLinkedList resLL = new SinglyLinkedList();
 
+            SinglyLinkedList.Node end = aLL.first;
             while (a > 0) {
                 int digit = a % 10;
-                aLL.insertFront(digit);
+                end = aLL.insertAfter(end, digit);
                 a = a / 10;
             }
 
+            end = bLL.first;
             while (b > 0) {
                 int digit = b % 10;
-                bLL.insertFront(digit);
+                end = bLL.insertAfter(end, digit);
                 b = b / 10;
             }
 
-            
+            SinglyLinkedList.Iterator it = new SinglyLinkedList.Iterator(aLL);
+
+            while (it.getCurrentNode().next != null) {
+                System.out.println(it.getValue());
+            }
+
+            it = new SinglyLinkedList.Iterator(bLL);
+
+            while (it.getCurrentNode().next != null) {
+                System.out.println(it.getValue());
+            }
 
             // get cwd (i wasnt sure what is cwd in java so i tested)
             // System.out.println("Working Directory = " + System.getProperty("user.dir"));
@@ -47,7 +59,7 @@ public class CPA2 {
             // }
             // }
 
-            wr.write(min_name);
+            // wr.write();
 
             rd.close();
             wr.close();
