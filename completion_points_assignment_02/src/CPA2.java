@@ -54,11 +54,11 @@ public class CPA2 {
             }
 
             // iterators
-            SinglyLinkedList.Iterator aIterator = aLL.new Iterator(aLL);
-            SinglyLinkedList.Iterator bIterator = bLL.new Iterator(bLL);
+            Iterator aIterator = new Iterator(aLL);
+            Iterator bIterator = new Iterator(bLL);
 
-            SinglyLinkedList.Iterator rIterator = rLL.new Iterator(rLL);
-            SinglyLinkedList.Node exponentShiftMarker = null;
+            Iterator rIterator = new Iterator(rLL);
+            Node exponentShiftMarker = null;
 
             int nextStartExponent = 1;
             int currentExponent = 0;

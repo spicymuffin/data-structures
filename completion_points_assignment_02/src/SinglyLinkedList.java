@@ -2,66 +2,6 @@
 // https://rollbar.com/guides/java/how-to-throw-exceptions-in-java/
 
 public class SinglyLinkedList {
-    class Node {
-        public Node next;
-        public int value;
-
-        public Node(Node _next, int _value) {
-            next = _next;
-            value = _value;
-        }
-    }
-
-    class Iterator {
-        public Node current;
-        public SinglyLinkedList LL;
-
-        public Iterator(SinglyLinkedList _LL) {
-            LL = _LL;
-            current = LL.first;
-        }
-
-        public Node mvToNext() {
-            current = current.next;
-            return current;
-        }
-
-        public Node mvToLast() {
-            current = LL.last;
-            return current;
-        }
-
-        public Node mvToFirst() {
-            current = LL.first;
-            return current;
-        }
-
-        public int getValue() {
-            return current.value;
-        }
-
-        public Node getNextNode() {
-            return current.next;
-        }
-
-        public Node getLastNode() {
-            return LL.last;
-        }
-
-        public Node getFirstNode() {
-            return LL.first;
-        }
-
-        public Node getCurrentNode() {
-            return current;
-        }
-
-        public Node mvToNode(Node _node) {
-            current = _node;
-            return current;
-        }
-    }
-
     public Node first;
     public Node last;
 
