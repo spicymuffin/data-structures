@@ -6,4 +6,8 @@ public class DNode {
     public DNode(int _data) {
         data = _data;
     }
+
+    public DNode() {
+
+    }
 }

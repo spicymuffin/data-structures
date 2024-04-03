@@ -34,7 +34,7 @@ public class CDIter {
             return false;
         }
         list.deleteAt(cur);
-        next();
+        this.next();
         return true;
     }
 

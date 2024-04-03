@@ -11,14 +11,12 @@ public class CDList {
     }
 
     public void insertAtFront(int x) {
-        DNode inserted = new DNode();
-        inserted.data = x;
+        DNode inserted = new DNode(x);
         this.insertAfter(header, inserted);
     }
 
     public void insertAtEnd(int x) {
-        DNode inserted = new DNode();
-        inserted.data = x;
+        DNode inserted = new DNode(x);
         this.insertAfter(header.prev, inserted);
     }
 
