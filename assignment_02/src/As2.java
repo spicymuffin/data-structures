@@ -30,6 +30,11 @@ public class As2 {
             System.out.println("File IO error probably: " + e);
         }
 
+        // handle null input
+        if (input_string == null) {
+            return;
+        }
+
         Stack operator_stack = new Stack(input_string.length());
         char[] answer = new char[input_string.length()];
         int answer_writer = 0;
