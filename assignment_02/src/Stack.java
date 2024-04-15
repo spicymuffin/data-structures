@@ -6,6 +6,7 @@ public class Stack {
 
     public Stack(int _size) {
         top = -1;
+        size = _size;
         data = new char[_size];
     }
 
@@ -20,17 +21,21 @@ public class Stack {
     public char pop() {
         if (isEmpty()) {
             System.out.println("empty");
-            return 0;
+            return '\0';
         }
         return data[top--];
     }
 
     public char peek() {
+        if (isEmpty()) {
+            System.out.println("empty");
+            return '\0';
+        }
         return data[top];
     }
 
     public boolean isEmpty() {
-        return -1 == top;
+        return top == -1;
     }
 
     public boolean isFull() {
