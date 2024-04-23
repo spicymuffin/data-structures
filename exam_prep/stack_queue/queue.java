@@ -1,4 +1,7 @@
+package stack_queue;
+
 public class queue {
+
     public int[] data;
     public int size;
     public int front;
@@ -13,7 +16,7 @@ public class queue {
     }
 
     public void enqueue(int x) {
-        if (isFull()){
+        if (isFull()) {
             System.out.println(front + " " + rear + " full");
             return;
         }
@@ -22,7 +25,7 @@ public class queue {
     }
 
     public int dequeue() {
-        if (isEmpty()){
+        if (isEmpty()) {
             System.out.println(front + " " + rear + " empty");
             return -1;
         }

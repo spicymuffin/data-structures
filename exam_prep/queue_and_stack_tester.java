@@ -1,3 +1,5 @@
+import stack_queue.queue;
+
 public class queue_and_stack_tester {
     public static void printarr(int[] arr, int n) {
         for (int i = 0; i < n; i++) {

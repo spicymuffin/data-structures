@@ -1,3 +1,4 @@
+package sorting;
 public class bubble_sort {
     static void sort(int[] arr, int n) {
         boolean sorted = false;

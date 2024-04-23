@@ -1,3 +1,4 @@
+package sorting;
 class insertion_sort {
     static void sort(int[] arr, int n) {
         int tmp;
@@ -7,7 +8,7 @@ class insertion_sort {
             for (j = i - 1; j >= 0; j--) { //set bound to j >= 0, bc we can't be checking negative indices
                 if (tmp < arr[j]) { // you can put this condition in the for loop actually...
                                     //
-                                    // make sure it's stable by not setting to not strict sign.
+                                    // make sure it's stable by not setting to not strict sign
                                     // setting a not strict sign will result in the items with
                                     // same value to be reversed - ? [needs checking, not sure]
                     arr[j + 1] = arr[j]; // shift elements until this one

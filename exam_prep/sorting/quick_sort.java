@@ -1,3 +1,4 @@
+package sorting;
 public class quick_sort {
     public static void partition(int[] a, int left, int right) {
         if (left >= right) {
@@ -8,7 +9,7 @@ public class quick_sort {
         int tmp;
         int pivot = a[left]; // pivot is the always the first element
         int j = left; // the swap index is initialized to pivot.
-        // start partitioning starting from pivot element
+                      // start partitioning starting from pivot element
         for (int i = left + 1; i <= right; i++) {
             if (a[i] <= pivot) {
                 // if an element is smaller than the pivot we should move

@@ -1,3 +1,5 @@
+import sorting.bubble_sort;
+
 public class sort_tester {
 
     public static void printarr(int[] arr, int n) {
