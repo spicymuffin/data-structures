@@ -1,4 +1,4 @@
-package stack_queue;
+package structures;
 
 public class queue {
 
@@ -43,3 +43,4 @@ public class queue {
         return front == ((rear + 2) % size);
     }
 }
+

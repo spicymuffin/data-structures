@@ -1,4 +1,4 @@
-import stack_queue.queue;
+import structures.queue;
 
 public class queue_and_stack_tester {
     public static void printarr(int[] arr, int n) {
@@ -10,42 +10,45 @@ public class queue_and_stack_tester {
     }
 
     public static void main(String[] args) {
-        int[] test_array = { 1, 2, 3, 4, 5, 6, 7 }; // n = 7
+        int[] test_array = { 4, 4, 4, 4, 4, 5, 6 }; // n = 7
 
-        queue a = new queue(5);
+        int a = binary_search.search_last(test_array, 7, 4);
+        System.out.println(a);
 
-        printarr(a.data, 6);
-        a.enqueue(1);
-        printarr(a.data, 6);
-        a.enqueue(2);
-        printarr(a.data, 6);
-        a.enqueue(3);
-        printarr(a.data, 6);
-        a.enqueue(4);
-        printarr(a.data, 6);
-        a.dequeue();
-        printarr(a.data, 6);
-        a.dequeue();
-        printarr(a.data, 6);
-        a.enqueue(5);
-        printarr(a.data, 6);
-        a.enqueue(6);
-        printarr(a.data, 6);
-        a.enqueue(7);
-        printarr(a.data, 6);
-        a.enqueue(8);
-        printarr(a.data, 6);
-        a.dequeue();
-        printarr(a.data, 6);
-        a.dequeue();
-        printarr(a.data, 6);
-        a.dequeue();
-        printarr(a.data, 6);
-        a.dequeue();
-        printarr(a.data, 6);
-        a.dequeue();
-        printarr(a.data, 6);
-        a.dequeue();
-        printarr(a.data, 6);
+        // queue a = new queue(5);
+
+        // printarr(a.data, 6);
+        // a.enqueue(1);
+        // printarr(a.data, 6);
+        // a.enqueue(2);
+        // printarr(a.data, 6);
+        // a.enqueue(3);
+        // printarr(a.data, 6);
+        // a.enqueue(4);
+        // printarr(a.data, 6);
+        // a.dequeue();
+        // printarr(a.data, 6);
+        // a.dequeue();
+        // printarr(a.data, 6);
+        // a.enqueue(5);
+        // printarr(a.data, 6);
+        // a.enqueue(6);
+        // printarr(a.data, 6);
+        // a.enqueue(7);
+        // printarr(a.data, 6);
+        // a.enqueue(8);
+        // printarr(a.data, 6);
+        // a.dequeue();
+        // printarr(a.data, 6);
+        // a.dequeue();
+        // printarr(a.data, 6);
+        // a.dequeue();
+        // printarr(a.data, 6);
+        // a.dequeue();
+        // printarr(a.data, 6);
+        // a.dequeue();
+        // printarr(a.data, 6);
+        // a.dequeue();
+        // printarr(a.data, 6);
     }
 }

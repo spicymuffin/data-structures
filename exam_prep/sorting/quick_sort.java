@@ -1,4 +1,5 @@
 package sorting;
+
 public class quick_sort {
     public static void partition(int[] a, int left, int right) {
         if (left >= right) {

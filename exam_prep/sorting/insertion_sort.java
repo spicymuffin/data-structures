@@ -1,11 +1,12 @@
 package sorting;
+
 class insertion_sort {
     static void sort(int[] arr, int n) {
         int tmp;
         int j;
         for (int i = 0; i < n; i++) {
             tmp = arr[i]; // cache the element we are trying to insert
-            for (j = i - 1; j >= 0; j--) { //set bound to j >= 0, bc we can't be checking negative indices
+            for (j = i - 1; j >= 0; j--) { // set bound to j >= 0, bc we can't be checking negative indices
                 if (tmp < arr[j]) { // you can put this condition in the for loop actually...
                                     //
                                     // make sure it's stable by not setting to not strict sign
