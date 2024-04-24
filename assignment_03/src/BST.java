@@ -52,9 +52,48 @@ public class BST {
         BSTNode node_to_delete = search_result[1];
         int immediate_child_count = get_immediate_child_count(node_to_delete);
 
+        // deleting root is a special case
+        if (node_to_delete == root) {
+            if (immediate_child_count == 0) {
+                // root is deleted, no children. root beocomes null
+                root = null;
+            }
+            // if it had only right child, it's the new root
+            else if (immediate_child_count == 1) {
+                root = root.right;
+            }
+            // identical for left
+            else if (immediate_child_count == -1) {
+                root = root.left;
+            }
+            // else it had both children
+            // find max of left subtree (arbitrarily chosen)
+            else {
+                BSTNode left_subtree_max = node_to_delete.left;
+                BSTNode left_subtree_max_parent = node_to_delete;
+                while (left_subtree_max.right != null) {
+                    left_subtree_max_parent = left_subtree_max;
+                    left_subtree_max = left_subtree_max.right;
+                }
+                // if it has a left child (it can only have a left child)
+                // stitch it to parent of left_subtree_max
+                if (left_subtree_max.left != null) {
+                    left_subtree_max_parent.right = left_subtree_max.left;
+                } else {
+                    left_subtree_max_parent.right = null;
+                }
+                // swap key of node to delete to the left_subtree_max's key
+                node_to_delete.key = left_subtree_max.key;
+            }
+
+            return true;
+        }
+
         // since node to delete had 0 immediate children just update
         // parent's references.
-        if (immediate_child_count == 0) {
+        if (immediate_child_count == 0)
+
+        {
             // if child's key is bigger than parent's, child was right node
             if (node_to_delete.key > node_to_delete_parent.key) {
                 node_to_delete_parent.right = null;
@@ -65,19 +104,56 @@ public class BST {
                 node_to_delete_parent.left = null;
             }
         }
-        // if it had one immediate child, just "stitch" child of node to be deleted
-        // to the parent
+        // if it had only right child, just "stitch" the right child of node to be
+        // deleted to the parent
         else if (immediate_child_count == 1) {
             // if child's key is bigger than parent's, child was right node
             if (node_to_delete.key > node_to_delete_parent.key) {
+                node_to_delete_parent.right = node_to_delete.right;
             }
             // else the key was smaller (since they can't be equal) -> child
             // was left node
             else {
-                node_to_delete_parent.left = null;
+                node_to_delete_parent.left = node_to_delete.right;
             }
         }
+        // identical for left
+        else if (immediate_child_count == -1) {
+            // if child's key is bigger than parent's, child was right node
+            if (node_to_delete.key > node_to_delete_parent.key) {
+                node_to_delete_parent.right = node_to_delete.left;
+            }
+            // else the key was smaller (since they can't be equal) -> child
+            // was left node
+            else {
+                node_to_delete_parent.left = node_to_delete.left;
+            }
+        }
+        // else it had both children
+        // find max of left subtree (arbitrarily chosen)
+        else {
 
+            BSTNode left_subtree_max = node_to_delete.left;
+            BSTNode left_subtree_max_parent = node_to_delete;
+            while (left_subtree_max.right != null) {
+                left_subtree_max_parent = left_subtree_max;
+                left_subtree_max = left_subtree_max.right;
+            }
+
+            // if it has a left child (it can only have a left child)
+            // stitch it to parent of left_subtree_max
+            if (left_subtree_max.left != null) {
+                left_subtree_max_parent.right = left_subtree_max.left;
+            } else {
+                // if left_subtree_max is directly the node_to_delete's
+                // left child, then we cant be deleting its right subtree
+                if (left_subtree_max_parent != node_to_delete) {
+                    left_subtree_max_parent.right = null;
+                }
+            }
+            // swap key of node to delete to the left_subtree_max's key
+            node_to_delete.key = left_subtree_max.key;
+        }
         return true;
     }
 
@@ -88,6 +164,11 @@ public class BST {
         // if tree is empty obv value doesnt exist in tree
         if (root == null) {
             return new BSTNode[] { null, null };
+        }
+
+        // if root has the key
+        if (root.key == key) {
+            return new BSTNode[] { null, root };
         }
 
         BSTNode subtreeroot = root;
@@ -114,13 +195,6 @@ public class BST {
         // if we traversed and ended up at a null node
         // it means the node doenst exist in tree
         return new BSTNode[] { subtreeroot_parent, null };
-    }
-
-    public BSTNode find_max_child_node(BSTNode root_node) {
-        while (root_node.right != null) {
-            root_node = root_node.right;
-        }
-        return root_node;
     }
 
     // 0 for 0
