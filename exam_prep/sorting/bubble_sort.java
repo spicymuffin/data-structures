@@ -1,7 +1,12 @@
 package sorting;
 
+// stable. we never swap elements, that have the same value. and we dont have any other "random" swappings.
+
+// runs in O(n^2). worst case - minimal at end, we have to cylce the entire list n times, bc each iteration
+// moves it by one place to the left (ascending order)
+
 public class bubble_sort {
-    static void sort(int[] arr, int n) {
+    public static void sort(int[] arr, int n) {
         boolean sorted = false;
         int tmp;
 

@@ -16,8 +16,10 @@ public class As2 {
             return 2;
         } else if (b == '(' && _mode) {
             return 1;
+        } else if (b == '\0') {
+            return -1;
         }
-        return -1;
+        return Integer.MIN_VALUE;
     }
 
     public static void main(String[] args) {
@@ -50,7 +52,7 @@ public class As2 {
             }
 
             // something broke really bad
-            if (eval_result == -1) {
+            if (eval_result == Integer.MIN_VALUE) {
                 System.out.println("critical error: eval returned -1");
                 return;
             }
@@ -59,12 +61,12 @@ public class As2 {
 
             // is a ')'
             if (eval_result == 5) {
-                while (!operator_stack.isEmpty() && eval(operator_stack.peek(), true) != 1) {
+                while (eval(operator_stack.peek(), true) != 1) {
                     answer[answer_writer++] = operator_stack.pop();
                 }
                 operator_stack.pop();
             } else {
-                while (!operator_stack.isEmpty() && eval(operator_stack.peek(), true) >= eval_result) {
+                while (eval(operator_stack.peek(), true) >= eval_result) {
                     answer[answer_writer++] = operator_stack.pop();
                 }
                 operator_stack.push(eval_char);
