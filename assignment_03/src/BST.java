@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class BST {
     public BSTNode root;
 
@@ -78,9 +81,19 @@ public class BST {
                 // if it has a left child (it can only have a left child)
                 // stitch it to parent of left_subtree_max
                 if (left_subtree_max.left != null) {
-                    left_subtree_max_parent.right = left_subtree_max.left;
+                    if (left_subtree_max_parent != node_to_delete) {
+                        left_subtree_max_parent.right = left_subtree_max.left;
+                    } else {
+                        left_subtree_max_parent.left = left_subtree_max.left;
+                    }
                 } else {
-                    left_subtree_max_parent.right = null;
+                    // if left_subtree_max is directly the node_to_delete's
+                    // left child, then we cant be deleting its parent's right subtree
+                    if (left_subtree_max_parent != node_to_delete) {
+                        left_subtree_max_parent.right = null;
+                    } else {
+                        left_subtree_max_parent.left = null;
+                    }
                 }
                 // swap key of node to delete to the left_subtree_max's key
                 node_to_delete.key = left_subtree_max.key;
@@ -91,9 +104,7 @@ public class BST {
 
         // since node to delete had 0 immediate children just update
         // parent's references.
-        if (immediate_child_count == 0)
-
-        {
+        if (immediate_child_count == 0) {
             // if child's key is bigger than parent's, child was right node
             if (node_to_delete.key > node_to_delete_parent.key) {
                 node_to_delete_parent.right = null;
@@ -143,12 +154,18 @@ public class BST {
             // if it has a left child (it can only have a left child)
             // stitch it to parent of left_subtree_max
             if (left_subtree_max.left != null) {
-                left_subtree_max_parent.right = left_subtree_max.left;
+                if (left_subtree_max_parent != node_to_delete) {
+                    left_subtree_max_parent.right = left_subtree_max.left;
+                } else {
+                    left_subtree_max_parent.left = left_subtree_max.left;
+                }
             } else {
                 // if left_subtree_max is directly the node_to_delete's
-                // left child, then we cant be deleting its right subtree
+                // left child, then we cant be deleting its parent's right subtree
                 if (left_subtree_max_parent != node_to_delete) {
                     left_subtree_max_parent.right = null;
+                } else {
+                    left_subtree_max_parent.left = null;
                 }
             }
             // swap key of node to delete to the left_subtree_max's key
@@ -175,15 +192,19 @@ public class BST {
         BSTNode subtreeroot_parent = null;
 
         while (subtreeroot != null) {
-            // cache subtreeroot, bc it will be the parent of the node
-            // that gets picked below
-            subtreeroot_parent = subtreeroot;
+
             // if key is bigger than root, we go to right
             if (key > subtreeroot.key) {
+                // cache subtreeroot, bc it will be the parent of the node
+                // that gets picked below
+                subtreeroot_parent = subtreeroot;
                 subtreeroot = subtreeroot.right;
             }
             // if key is smaller than root we go to left
             else if (key < subtreeroot.key) {
+                // cache subtreeroot, bc it will be the parent of the node
+                // that gets picked below
+                subtreeroot_parent = subtreeroot;
                 subtreeroot = subtreeroot.left;
             }
             // if equals it means we found the key in the BST
