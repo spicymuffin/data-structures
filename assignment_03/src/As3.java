@@ -201,5 +201,21 @@ class As3 {
         System.out.println(bst.search(4));
         printTree(bst);
         System.out.println("===============test 8 end===============");
+
+        // left subtree max's parent is node to delete
+        bst = new BST();
+        bst.insert(8);
+        bst.insert(5);
+        bst.insert(9);
+        bst.insert(2);
+        bst.insert(7);
+        bst.insert(1);
+        bst.insert(4);
+        printTree(bst);
+        System.out.println(">>>>>>>>>>>>>>> generated");
+        bst.delete(5);
+        printTree(bst);
+        System.out.println(">>>>>>>>>>>>>>> deleted 5");
+        System.out.println("===============test 9 end===============");
     }
 }
