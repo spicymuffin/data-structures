@@ -140,14 +140,12 @@ public class BST {
         // else it had both children
         // find max of left subtree (arbitrarily chosen)
         else {
-
             BSTNode left_subtree_max = node_to_delete.left;
             BSTNode left_subtree_max_parent = node_to_delete;
             while (left_subtree_max.right != null) {
                 left_subtree_max_parent = left_subtree_max;
                 left_subtree_max = left_subtree_max.right;
             }
-
             // if it has a left child (it can only have a left child)
             // stitch it to parent of left_subtree_max
             if (left_subtree_max.left != null) {
