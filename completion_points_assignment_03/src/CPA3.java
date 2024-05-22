@@ -51,7 +51,6 @@ public class CPA3 {
                 vert1 = Integer.parseInt(param[1]);
                 weight = Integer.parseInt(param[2]);
                 edges[i] = new Edge(weight, vert0, vert1);
-                System.out.println(weight);
             }
 
         } catch (Exception e) {
@@ -65,25 +64,20 @@ public class CPA3 {
         // sort the edges inside edges: O(nedge*log(nedge))
         quicksort_edges(edges, 0, nedge - 1);
 
-        for (int i = 0; i < nedge; i++) {
-            System.out.println(edges[i].weight);
-        }
-
         int edges_in_spanning_tree = 0;
 
         int s1, s2;
 
         // will store answer
-        String[] output_strings = new String[nedge];
+        String[] output_strings = new String[nvert - 1];
 
         // run kruskal's
         for (int i = 0; i < nedge; i++) {
             if ((s1 = uf.find(edges[i].vert0)) != (s2 = uf.find(edges[i].vert1))) {
                 spanning_tree_union_name = uf.union(s1, s2);
+                output_strings[edges_in_spanning_tree] = edges[i].vert0 + " " + edges[i].vert1 + "\n";
                 edges_in_spanning_tree++;
-                output_strings[i] = edges[i].vert0 + " " + edges[i].vert1 + "\n";
-                System.out.println(output_strings[i]);
-                System.out.println(nvert - 1 + " " + edges_in_spanning_tree + " " + i);
+                System.out.println("Adding edge: " + edges[i].vert0 + " " + edges[i].vert1);
                 if (edges_in_spanning_tree == nvert - 1) {
                     break;
                 }
@@ -93,15 +87,16 @@ public class CPA3 {
         try {
             BufferedWriter wr = new BufferedWriter(new FileWriter("output.txt"));
 
-            if (false) {// if (edges_in_spanning_tree != (nvert - 1)) {
+            if (edges_in_spanning_tree != (nvert - 1)) {
+                System.out.println("didnt reach nvert - 1, spanning tree doesn't exist");
                 wr.write("none");
             } else {
-                for (int i = 0; i < nedge - 1; i++) {
-                    System.out.println("GAY");
+                System.out.println("reached nvert-1, spanning tree exists");
+                for (int i = 0; i < edges_in_spanning_tree; i++) {
+                    wr.write(output_strings[i]);
                 }
             }
 
-            wr.write(output_strings[i]);
             wr.close();
         } catch (Exception e) {
             System.out.println("File IO error probably: " + e);
