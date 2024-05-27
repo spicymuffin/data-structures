@@ -19,7 +19,7 @@ class As4 {
 
 		try {
 			// read in the input
-			rd = new BufferedReader(new FileReader("input0.txt"));
+			rd = new BufferedReader(new FileReader("input2.txt"));
 			str = rd.readLine();
 			pos = str.indexOf(" ");
 			n = Integer.parseInt(str.substring(0, pos));
