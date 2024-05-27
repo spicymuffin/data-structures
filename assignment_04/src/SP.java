@@ -1,7 +1,5 @@
-import org.w3c.dom.Node;
-
 class SP {
-	int INF = 1051;
+	static int INF = 1051;
 
 	// plain find minimum between two integers
 	public static int min(int a, int b) {
@@ -13,25 +11,31 @@ class SP {
 
 	// find the index of the minimal in an array given the indices of the elements
 	// to consider
-	public static int min_indx(int[] arr, int indx0, int indx1) {
-		if (arr[indx0] <= arr[indx1]) {
+	public static int min_indx(HeapNode[] arr, int indx0, int indx1) {
+		if (arr[indx0].d <= arr[indx1].d) {
 			return indx0;
 		}
 		return indx1;
 	}
 
-	public static void swap(int[] arr, int indx0, int indx1) {
-		int tmp;
-		tmp = arr[indx0];
+	// swap to elements in heap, keep track of indices
+	public static void swap(HeapNode[] arr, int[] map, int indx0, int indx1) {
+		HeapNode tmp_heapnode;
+		tmp_heapnode = arr[indx0];
 		arr[indx0] = arr[indx1];
-		arr[indx1] = tmp;
+		arr[indx1] = tmp_heapnode;
+
+		int tmp_indx;
+		tmp_indx = map[indx0];
+		map[indx0] = map[indx1];
+		map[indx1] = tmp_indx;
 	}
 
 	// priority_queue: priority queue
 	// n: length of container (#)
 	// a: active elements in the priority queue (#)
 	// start: heapify start index
-	public static void heapify(int[] priority_queue, int n, int a, int start) {
+	public static void heapify(HeapNode[] priority_queue, int[] map, int n, int a, int start) {
 		int left_child_indx, right_child_indx, min_child_indx;
 		int tmp;
 
@@ -55,8 +59,8 @@ class SP {
 			}
 
 			// swap if the minimal is smaller than start
-			if (priority_queue[start] > priority_queue[min_child_indx]) {
-				swap(priority_queue, start, min_child_indx);
+			if (priority_queue[start].d > priority_queue[min_child_indx].d) {
+				swap(priority_queue, map, start, min_child_indx);
 
 				// set up to traverse further down
 				start = min_child_indx;
@@ -68,66 +72,116 @@ class SP {
 		}
 	}
 
-	public static int init_priority_queue(int[] priority_queue, int n, int a) {
+	public static void decrease_key(HeapNode[] priority_queue, int[] map, int n, int a, int indx, int val) {
+		priority_queue[indx].d = val;
+		int parent_indx = (indx - 1) / 2;
+		while (indx != 0 && priority_queue[indx].d < priority_queue[parent_indx].d) {
+			swap(priority_queue, map, indx, parent_indx);
+			indx = parent_indx;
+			parent_indx = (parent_indx - 1) / 2;
+		}
+	}
+
+	// decrement a after use!
+	public static void delete_root(HeapNode[] priority_queue, int[] map, int n, int a) {
+		swap(priority_queue, map, 0, a - 1);
+		heapify(priority_queue, map, n, a - 1, 0);
+	}
+
+	public static void init_priority_queue(HeapNode[] priority_queue, int[] map, int n, int a) {
+		for (int i = 0; i < n; i++) {
+			map[i] = i;
+			priority_queue[i] = new HeapNode(i, -1);
+		}
+
 		for (int i = a / 2 - 1; i >= 0; i--) {
-			heapify(priority_queue, n, a, i);
+			heapify(priority_queue, map, n, a, i);
+		}
+	}
+
+	public static void print_priority_queue(HeapNode[] priority_queue, int n, int a) {
+		for (int i = 0; i < n; i++) {
+			System.out.println(i + " " + priority_queue[i].indx + ": " + priority_queue[i].d);
+			if (i == a - 1) {
+				System.out.println("<----inactive bound---->");
+			}
 		}
 	}
 
 	public static int getSPLen(int n, int m, int[] x, int[] y, int[] c, int s, int t) {
 		// construct LL representation of graph
-		Node[] graph = new Node[n];
+		LLNode[] graph = new LLNode[n];
 		for (int i = 0; i < n; i++) {
-			graph[i] = new Node();
+			graph[i] = new LLNode();
 		}
 
 		for (int i = 0; i < m; i++) {
 			int v0_indx = x[i];
-			Node next = graph[v0_indx].next;
+			LLNode next = graph[v0_indx].next;
 
 			// create new node and link to next
 			// CURRENTLY IT RECEIVES INPUT AS A DIRECTED GRAPH
 			// TODO: change input receival process
-			Node inserting = new Node(y[i], c[i], next);
+			LLNode inserting = new LLNode(y[i], c[i], next);
 
 			// the new header is the one we just created
 			graph[v0_indx] = inserting;
 		}
 
 		// we will keep track of the set by setting a flag in a boolean array
-		boolean[] shortest_path_found_set = new boolean[n];
+		boolean[] shortest_path_tree_set = new boolean[n];
 
 		// pathfinding data storing arrays
-		int[] dist = new int[n];
 		int[] prev = new int[n];
 
 		// priority queue that is going to store (V \ S)'s vertices
 		int priority_queue_size = n;
-		int[] priority_queue = new int[n]; // reflects d[]
+		HeapNode[] priority_queue = new HeapNode[n]; // contains d[]
 		int[] priority_queue_indx_map = new int[n]; // reflects the indices that map priority queue to d[]
 
-		// initialize priority queue
-
 		// initial dijkstra setup
-		Node ref_node_s = graph[s];
+		LLNode ref_node_s = graph[s];
 
-		// set all to inf fist
+		// initialize priority queue
+		init_priority_queue(priority_queue, priority_queue_indx_map, n, priority_queue_size);
+
+		// set d to inf fist
 		for (int i = 0; i < n; i++) {
-			dist[i] = INF;
+			priority_queue[priority_queue_indx_map[i]].d = INF;
 		}
 
-		// starting vert's dist is zero
-		dist[s] = 0;
-
-		Node iter;
-		iter = ref_node_s;
-		int current_node_indx = s;
+		// starting vert's d is zero
+		decrease_key(priority_queue, priority_queue_indx_map, n, priority_queue_size, s, 0);
+		shortest_path_tree_set[s] = true;
 
 		// main loop
 		while (priority_queue_size != 0) {
-			// choose x from unvisited vertices that minimizes dist[]
+			// choose x from unvisited vertices that minimizes d[]
+			int minimal_d_vert_indx = priority_queue[0].indx;
+			delete_root(priority_queue, priority_queue_indx_map, n, priority_queue_size);
+			priority_queue_size--;
+
+			// add the vertex to the shortest path tree set
+			shortest_path_tree_set[minimal_d_vert_indx] = true;
+
+			LLNode iter;
+			iter = graph[minimal_d_vert_indx];
+			int current_node_indx = minimal_d_vert_indx;
+
+			while (iter != null) {
+				if (priority_queue[minimal_d_vert_indx].d
+						+ iter.weight <= priority_queue[priority_queue_indx_map[iter.v1_indx]].d) {
+					priority_queue[priority_queue_indx_map[iter.v1_indx]].d = priority_queue[minimal_d_vert_indx].d
+							+ iter.weight;
+					prev[iter.v1_indx] = minimal_d_vert_indx;
+				}
+				iter = iter.next;
+
+			}
+			print_priority_queue(priority_queue, n, priority_queue_size);
+			System.out.println("");
 		}
 
-		return -1;
+		return priority_queue[priority_queue_indx_map[t]].d;
 	}
 }
