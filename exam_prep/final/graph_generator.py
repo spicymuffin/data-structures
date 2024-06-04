@@ -1,7 +1,7 @@
 import random
 
-NVERT = 10
-NEDGE = 45
+NVERT = 100
+NEDGE = 800
 
 WEIGHT_MIN = 1
 WEIGHT_MAX = 1050
@@ -39,11 +39,10 @@ for i in range(NVERT):
     while edgemap[origin][destination] != 0:
         origin = i
         destination = randint_excluding_n(0, NVERT - 1, i)
-    print(
-        origin, " ", destination, " ", weight, sep=""
-    )
+    print(origin, " ", destination, " ", weight, sep="")
     edges_generated += 1
     edgemap[origin][destination] = weight
+    edgemap[destination][origin] = weight
 
 for i in range(NEDGE - edges_generated):
     origin = random.randint(0, NVERT - 1)
@@ -58,11 +57,10 @@ for i in range(NEDGE - edges_generated):
         #         print(edgemap[i][j], end=" ")
         #     print()
 
-    print(
-        origin, " ", destination, " ", weight, sep=""
-    )
+    print(origin, " ", destination, " ", weight, sep="")
     edges_generated += 1
     edgemap[origin][destination] = weight
+    edgemap[destination][origin] = weight
 
 for i in range(NVERT):
     for j in range(NVERT):
