@@ -10,11 +10,10 @@ class test_3989 {
         int op_cnt, htable_len, p;
         int failed_insert_cnt = 0;
 
-        String query_result;
-
         BufferedReader rd = null;
         BufferedWriter wr = null;
 
+        String query_result;
         String operation;
         String key;
         int pos;
@@ -36,9 +35,6 @@ class test_3989 {
             op_cnt = Integer.parseInt(rd.readLine());
 
             ht = new HTable(htable_len);
-
-            ht.hf.part_cnt = p;
-            ht.hf.generate_coefficients();
 
             // profiling start
             starttime = System.nanoTime();
@@ -62,18 +58,14 @@ class test_3989 {
                     hash = ht.hf.hash(new BigInteger(key));
                     wr.write(Integer.toString(hash) + '\n');
                 }
-                // if (i % 100000 == 0) {
-                //     System.out.println(String.valueOf(Float.valueOf(i) / op_cnt * 100) + "%");
-                // }
             }
 
             // profiling end
             elapsedtime = System.nanoTime() - starttime;
-            System.out.println("part_cnt:   " + ht.hf.part_cnt);
             System.out.println("exec_time:  " + Double.toString((double) elapsedtime / 1000000000));
-            System.out.println("coll_count: " + ht.collision_cnt);
-            System.out.println("fld_insert: " + failed_insert_cnt);
-            System.out.println("load:       " + load);
+            // System.out.println("coll_count: " + ht.collision_cnt);
+            // System.out.println("fld_insert: " + failed_insert_cnt);
+            // System.out.println("load:       " + load);
 
             rd.close();
             rd = null;
