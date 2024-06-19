@@ -4,7 +4,9 @@ class HTable {
 
 	private HEntry[] t;
 	private int sz;
-	private HashFunction hf;
+	public HashFunction hf;
+
+	public int collision_cnt = 0;
 
 	public HTable(int size) {
 		sz = size;
@@ -19,6 +21,13 @@ class HTable {
 
 		h = hf.hash(k);
 		i = h;
+
+		if (t[h] != null) {
+			collision_cnt++;
+			if (k.equals(t[h].key))
+				return false;
+		}
+
 		do {
 			if (t[i] != null) {
 				if (k.equals(t[i].key))
