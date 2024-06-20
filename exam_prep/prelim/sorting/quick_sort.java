@@ -48,7 +48,7 @@ public class quick_sort {
                 a[edge] = a[i];
                 a[i] = tmp;
             }
-            // edge always is edging AHHAH
+            // edge always is edging
             // edging between those that are larger and smaller than pivot.
             // edge is always on the last element, that is equal or smaller than pivot.
             // when we find an item, which is smaller than pivot, after the array

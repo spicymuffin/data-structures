@@ -1,34 +1,23 @@
-// skeleton code -- do not modify!
-//
-// CCO 2103-01, Spring 2024
-//
-// PS4
-
 import java.io.*;
 
-class As4 {
+class GraphTest {
 
-    public static void  main(String[] args) {
-		BufferedReader  rd = null;
-		BufferedWriter  wr = null;
-		String 			str;
-		int[]           x, y, c;
-		int				n, m, s, t, i, pos, pos2;
-		int				ret;
-		long			starttime, elapsedtime;
+	public static void main(String[] args) {
+		BufferedReader rd = null;
+		BufferedWriter wr = null;
+		String str;
+		int[] x, y, c;
+		int n, m, i, pos, pos2;
+		int ret;
+		long starttime, elapsedtime;
 
 		try {
 			// read in the input
-			rd = new BufferedReader(new FileReader("input_large2.txt"));
+			rd = new BufferedReader(new FileReader("graphs/articulation_points_example.txt"));
 			str = rd.readLine();
 			pos = str.indexOf(" ");
 			n = Integer.parseInt(str.substring(0, pos));
 			m = Integer.parseInt(str.substring(pos + 1));
-
-			str = rd.readLine();
-			pos = str.indexOf(" ");
-			s = Integer.parseInt(str.substring(0, pos));
-			t = Integer.parseInt(str.substring(pos + 1));
 
 			x = new int[m];
 			y = new int[m];
@@ -47,27 +36,26 @@ class As4 {
 			rd = null;
 
 			starttime = System.nanoTime();
-			ret = SP.getSPLen(n, m, x, y, c, s, t);
+			GraphAdjacencyList gal = new GraphAdjacencyList(n, m, x, y, c, false);
+			GraphAlgo.find_articulation_points(0, gal);
 			elapsedtime = System.nanoTime() - starttime;
-			System.out.println(Double.toString((double)elapsedtime / 1000000000));
+			System.out.println(Double.toString((double) elapsedtime / 1000000000));
 
 			// write the output
-			wr = new BufferedWriter(new FileWriter("output.txt"));
-			wr.write(Integer.toString(ret));
-			wr.close();
-			wr = null;
-		}
-		catch (Exception e) {
-			// if the code throws any exception, stack trace will be output and the program will halt
+			// wr = new BufferedWriter(new FileWriter("output.txt"));
+			// wr.write(Integer.toString(ret));
+			// wr.close();
+			// wr = null;
+		} catch (Exception e) {
+			// if the code throws any exception, stack trace will be output and the program
+			// will halt
 			e.printStackTrace();
 			System.out.println("Error.");
-		}
-		finally {
+		} finally {
 			if (rd != null) {
 				try {
 					rd.close();
-				}
-				catch (Exception e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 					System.out.println("Error.");
 				}
@@ -75,8 +63,7 @@ class As4 {
 			if (wr != null) {
 				try {
 					wr.close();
-				}
-				catch (Exception e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 					System.out.println("Error.");
 				}
