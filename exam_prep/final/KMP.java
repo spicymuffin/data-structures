@@ -1,5 +1,5 @@
 public class KMP {
-    public static int[] computeFail(String pattern) {
+    public static int[] computeFail1(String pattern) {
         int[] f = new int[pattern.length()];
         // for 0th character, f is defined as 0 (technically it is 1 but set it to 0)
         f[0] = 0;
@@ -27,7 +27,50 @@ public class KMP {
         return f;
     }
 
+    public static int[] computeFail(String pattern) {
+        int n = pattern.length();
+        int[] f = new int[n];
+        f[0] = 0;
+        for (int i = 1; i < n; i++) {
+            int j = f[i - 1];
+            while (pattern.charAt(i) != pattern.charAt(j) && j >= 1) {
+                j = f[j - 1];
+            }
+            if (pattern.charAt(i) == pattern.charAt(j)) {
+                f[i] = j + 1;
+            } else {
+                f[i] = 0;
+            }
+        }
+        return f;
+    }
+
     public static int kmpMatch(String text, String pattern, int[] f) {
+        int t = 0;
+        int p = 0;
+        int t_len = text.length();
+        int p_len = pattern.length();
+        while (t < t_len) {
+            if (text.charAt(t) == pattern.charAt(p)) {
+                t++;
+                p++;
+
+                if (p == p_len) {
+                    System.out.println(t - p_len);
+                    p = f[p - 1];
+                }
+            } else {
+                if (p == 0) {
+                    t++;
+                } else {
+                    p = f[p - 1];
+                }
+            }
+        }
+        return 0;
+    }
+
+    public static int kmpMatch1(String text, String pattern, int[] f) {
         int text_iterator = 0, pattern_iterator = 0;
         int n = text.length(), m = pattern.length();
         // iterate while we dont "overflow"

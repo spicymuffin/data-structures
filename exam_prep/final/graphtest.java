@@ -37,7 +37,7 @@ class GraphTest {
 
 			starttime = System.nanoTime();
 			GraphAdjacencyList gal = new GraphAdjacencyList(n, m, x, y, c, false);
-			GraphAlgo.find_articulation_points(0, gal);
+			GraphAlgo.find_articulation_points(gal);
 			elapsedtime = System.nanoTime() - starttime;
 			System.out.println(Double.toString((double) elapsedtime / 1000000000));
 

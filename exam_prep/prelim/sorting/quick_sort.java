@@ -37,12 +37,11 @@ public class quick_sort {
         // to have a pivot that does not interfere with the partitioning process
 
         int tmp;
-        int pivot = a[left]; // pivot is the always the first element
         int edge = left; // the swap index is initialized to pivot.
                          // start partitioning starting from (pivot+1)th element
         for (int i = left + 1; i <= right; i++) {
             // if an element is smaller or equal than the pivot we should move
-            if (a[i] < pivot) {
+            if (a[i] < a[left]) {
                 edge++;
                 tmp = a[edge];
                 a[edge] = a[i];

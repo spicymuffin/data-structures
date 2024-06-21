@@ -28,7 +28,7 @@ public class merge_sort {
         // beginning of the part of the array that we are going to merge
         for (i = left, j = mid + 1, k = left; (i <= mid) && (j <= right);) {
             // if left side is smaller or equal we need to write it first to aux
-            // smaller OR EQUAL! if we dont do equal we are goiug to write the
+            // smaller OR EQUAL! if we dont do equal we are going to write the
             // right value, which breaks stability
             if (a[i] <= a[j]) {
                 aux[k++] = a[i++]; // increment both pointers

@@ -22,23 +22,18 @@ public class VertexPriorityQueue {
         }
     }
 
+    // i implemented this wrong initially 😭
     // takes queue indices
     // swap to elements in the queue, keep track of indices
     public void swap(int indx0, int indx1) {
-        // System.out.println("BEFORE SWAP: " + "(" + indx0 + ", " + indx1 + ")");
-        // printraw();
-        HeapNode tmp_heapnode;
-        tmp_heapnode = queue[indx0];
+        // swap nodes in the queue
+        HeapNode tmp_heapnode = queue[indx0];
         queue[indx0] = queue[indx1];
         queue[indx1] = tmp_heapnode;
 
-        int tmp_indx;
-        tmp_indx = vert_to_queue_indx_map[queue[indx0].indx];
-        vert_to_queue_indx_map[queue[indx0].indx] = vert_to_queue_indx_map[queue[indx1].indx];
-        vert_to_queue_indx_map[queue[indx1].indx] = tmp_indx;
-
-        // System.out.println("AFTER SWAP: ");
-        // printraw();
+        // update index map with new positions
+        vert_to_queue_indx_map[queue[indx0].indx] = indx0;
+        vert_to_queue_indx_map[queue[indx1].indx] = indx1;
     }
 
     // takes queue indices
