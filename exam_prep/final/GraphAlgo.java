@@ -1,5 +1,13 @@
 import java.util.Arrays;
 
+class Q {
+    LLNode head = null;
+    LLNode tail = null;
+    public Q() {
+        
+    }
+}
+
 class GraphAlgo {
 
     public GraphAlgo() {
@@ -93,7 +101,8 @@ class GraphAlgo {
                 }
             }
             // if we already visted it - backedge found
-            // additionally, dont consider the parent of child, bc naturally we are going to check the edge that we came from
+            // additionally, dont consider the parent of child, bc naturally we are going to
+            // check the edge that we came from
             else if (child != parent[v]) {
                 System.out.println("found backedge: " + v + " to " + child);
                 low[v] = min(low[v], dfn[child]);
@@ -102,5 +111,9 @@ class GraphAlgo {
             // we want to see next neighbor, so step the iterator
             iter = iter.next;
         }
+    }
+
+    public static int find_sp(int s, int t, GraphAdjacencyList gal) {
+
     }
 }
